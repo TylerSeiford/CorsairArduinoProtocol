@@ -36,6 +36,8 @@ void SimpleFanController::addFan(uint8_t index, IFan* fan)
 		fanData[index].power = fan->calculatePowerFromSpeed(fanData[index].speed);
 		break;
 	}
+
+	fanData[index].detectionType = fan->getType();
 }
 
 bool SimpleFanController::updateFans()

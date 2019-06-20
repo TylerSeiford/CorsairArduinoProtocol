@@ -15,7 +15,7 @@
 */
 #include "PWMFan.h"
 
-PWMFan::PWMFan(uint8_t pwmPin, uint16_t minRPM, uint16_t maxRPM) : pwmPin(pwmPin), IFan(minRPM, maxRPM) {
+PWMFan::PWMFan(uint8_t pwmPin, uint16_t minRPM, uint16_t maxRPM) : pwmPin(pwmPin), IFan(minRPM, maxRPM, FAN_MASK_4PIN) {
 	pinMode(pwmPin, OUTPUT);
 	analogWrite(pwmPin, 0);
 	switch (digitalPinToTimer(pwmPin)) {
