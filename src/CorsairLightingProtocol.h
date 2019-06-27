@@ -19,14 +19,17 @@
 
 #include "Arduino.h"
 #include "ILEDController.h"
+#include "CorsairLightingFirmware.h"
+#include "IFanController.h"
+#include "ITemperatureController.h"
 #include "CorsairLightingProtocolResponse.h"
 #include "CorsairLightingProtocolConstants.h"
-
 
 class CorsairLightingProtocol : public CorsairLightingProtocolResponse
 {
 public:
-	CorsairLightingProtocol(ILEDController* a);
+	CorsairLightingProtocol(ILEDController* l, const uint8_t* firmwareVersion);
+	CorsairLightingProtocol(ILEDController* l, ITemperatureController* t, IFanController* f, const uint8_t* firmwareVersion);
 	void begin();
 	bool available() const;
 	void getCommand(Command& command);
@@ -34,7 +37,10 @@ public:
 	void sendX(const uint8_t * data, const size_t x) const override;
 private:
 	uint8_t rawhidData[COMMAND_SIZE];
+	CorsairLightingFirmware corsairLightingFirmware;
 	ILEDController* const ledController;
+	ITemperatureController* const temperatureController;
+	IFanController* const fanController;
 };
 
 #endif
